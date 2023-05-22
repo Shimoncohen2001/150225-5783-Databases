@@ -44,6 +44,7 @@ CREATE TABLE Player
   awards INT NOT NULL,
   gender VARCHAR(15) NOT NULL,
   experience INT NOT NULL,
+  coachID INT NOT NULL
   PRIMARY KEY (ID),
-  FOREIGN KEY (ID) REFERENCES Coach(ID)
+  FOREIGN KEY (coachID) REFERENCES Coach(ID)
 );
