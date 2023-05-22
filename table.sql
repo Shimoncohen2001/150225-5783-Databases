@@ -37,7 +37,7 @@ CREATE TABLE Player
   position VARCHAR(2) NOT NULL,
   nationality VARCHAR(3) NOT NULL,
   Lname VARCHAR(20) NOT NULL,
-  number INT NOT NULL,
+  shirtNumber INT NOT NULL,
   matches INT NOT NULL,
   wins INT NOT NULL,
   losses INT NOT NULL,
