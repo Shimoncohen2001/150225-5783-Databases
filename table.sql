@@ -7,7 +7,7 @@ CREATE TABLE Judge
   nationality VARCHAR(3) NOT NULL,
   experience INT NOT NULL,
   matches INT NOT NULL,
-  gender VARCHAR(10) NOT NULL,
+  gender VARCHAR(15) NOT NULL,
   PRIMARY KEY (ID)
 );
 
@@ -23,7 +23,7 @@ CREATE TABLE Coach
   wins INT NOT NULL,
   losses INT NOT NULL,
   awards INT NOT NULL,
-  gender VARCHAR(10) NOT NULL,
+  gender VARCHAR(15) NOT NULL,
   PRIMARY KEY (ID)
 );
 
@@ -42,7 +42,7 @@ CREATE TABLE Player
   wins INT NOT NULL,
   losses INT NOT NULL,
   awards INT NOT NULL,
-  gender VARCHAR(10) NOT NULL,
+  gender VARCHAR(15) NOT NULL,
   experience INT NOT NULL,
   PRIMARY KEY (ID),
   FOREIGN KEY (ID) REFERENCES Coach(ID)
