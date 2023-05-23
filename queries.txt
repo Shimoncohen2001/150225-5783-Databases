@@ -10,11 +10,15 @@ WHERE P.birthday = (SELECT MIN(birthday) FROM Player WHERE position = P.position
 GROUP BY P.position, P.Fname, P.Lname, P.birthday;
 
 
-SELECT P.ID, P.Fname, P.Lname, P.awards, C.Fname AS CoachFirstName, C.Lname AS CoachLastName
+SELECT P.position, AVG(P.height) AS AverageHeight, C.Fname AS CoachFirstName, C.Lname AS CoachLastName, P2.ID, P2.Fname, P2.Lname, P2.awards
 FROM Player P
 JOIN Coach C ON P.coachID = C.ID
-ORDER BY P.awards DESC
+JOIN Player P2 ON P.coachID = P2.coachID
+WHERE (C.wins::float / (C.wins + C.losses)) * 100 > 95
+GROUP BY P.position, C.Fname, C.Lname, P2.ID, P2.Fname, P2.Lname, P2.awards
+ORDER BY P2.awards DESC
 FETCH FIRST 10 ROWS ONLY;
+
 
 
 
