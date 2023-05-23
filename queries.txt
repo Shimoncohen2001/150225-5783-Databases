@@ -1,3 +1,3 @@
-SELECT Judge.ID, Judge.Fname, Judge.Lname, SUM(Judge.matches) AS TotalMatches
-FROM Judge
-GROUP BY Judge.ID, Judge.Fname, Judge.Lname;
+SELECT Coach.ID, Coach.Fname, Coach.Lname, Coach.awards
+FROM Coach
+WHERE Coach.awards = (SELECT MAX(awards) FROM Coach);
