@@ -1,4 +1,4 @@
-SELECT C.ID, C.Fname, C.Lname, (C.wins::float / (C.wins + C.losses)) * 100 AS WinPercentage
+SELECT C.ID, C.Fname, C.Lname, (C.wins / (C.wins + C.losses)) * 100 AS WinPercentage
 FROM Coach C
 ORDER BY WinPercentage DESC
 FETCH FIRST 5 ROWS ONLY;
@@ -14,10 +14,10 @@ SELECT P.position, AVG(P.height) AS AverageHeight, C.Fname AS CoachFirstName, C.
 FROM Player P
 JOIN Coach C ON P.coachID = C.ID
 JOIN Player P2 ON P.coachID = P2.coachID
-WHERE (C.wins::float / (C.wins + C.losses)) * 100 > 95
+WHERE (C.wins / (C.wins + C.losses)) * 100 > 95
 GROUP BY P.position, C.Fname, C.Lname, P2.ID, P2.Fname, P2.Lname, P2.awards
 ORDER BY P2.awards DESC
-FETCH FIRST 10 ROWS ONLY;
+FETCH FIRST 5 ROWS ONLY;
 
 
 SELECT C.nationality, AVG(C.experience) AS AvgCoachExperience
