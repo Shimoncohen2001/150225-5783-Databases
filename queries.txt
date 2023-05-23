@@ -1,3 +1,49 @@
-SELECT Coach.ID, Coach.Fname, Coach.Lname, Coach.awards
-FROM Coach
-WHERE Coach.awards = (SELECT MAX(awards) FROM Coach);
+SELECT C.ID, C.Fname, C.Lname, (C.wins::float / (C.wins + C.losses)) * 100 AS WinPercentage
+FROM Coach C
+ORDER BY WinPercentage DESC
+FETCH FIRST 5 ROWS ONLY;
+
+
+SELECT P.position, P.Fname, P.Lname, P.birthday
+FROM Player P
+WHERE P.birthday = (SELECT MIN(birthday) FROM Player WHERE position = P.position)
+GROUP BY P.position, P.Fname, P.Lname, P.birthday;
+
+
+SELECT P.ID, P.Fname, P.Lname, P.awards, C.Fname AS CoachFirstName, C.Lname AS CoachLastName
+FROM Player P
+JOIN Coach C ON P.coachID = C.ID
+ORDER BY P.awards DESC
+FETCH FIRST 10 ROWS ONLY;
+
+
+
+SELECT C.nationality, AVG(C.experience) AS AvgCoachExperience
+FROM Coach C
+GROUP BY C.nationality;
+
+
+SELECT J.ID, J.Fname AS JudgeFirstName, J.Lname AS JudgeLastName, C.Fname AS CoachFirstName, C.Lname AS CoachLastName
+FROM Judge J
+JOIN Coach C ON J.nationality = C.nationality;
+
+SELECT P.ID, P.Fname, P.Lname, P.position, C.Fname AS CoachFirstName, C.Lname AS CoachLastName, C.experience
+FROM Player P
+JOIN Coach C ON P.coachID = C.ID
+WHERE C.experience >= 5;
+
+
+SELECT J.ID, J.Fname, J.Lname
+FROM Judge J
+WHERE (SELECT COUNT(DISTINCT nationality) FROM Match WHERE judgeID = J.ID) >= 3;
+
+
+SELECT P.position, AVG(P.height) AS AverageHeight, AVG(P.weight) AS AverageWeight
+FROM Player P
+GROUP BY P.position;
+
+
+SELECT J.ID, J.Fname, J.Lname, J.matches, J.experience, (J.matches / (YEAR(CURRENT_DATE) - YEAR(J.birthday) + 1)) AS MatchesPerYear
+FROM Judge J
+ORDER BY J.matches DESC
+FETCH FIRST 3 ROWS ONLY;
