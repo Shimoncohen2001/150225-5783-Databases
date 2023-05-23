@@ -41,16 +41,3 @@ WHERE J.ID IN (
     GROUP BY J.ID
     HAVING COUNT(DISTINCT P.nationality) >= 3
 );
-
-
-
-
-SELECT P.position, AVG(P.height) AS AverageHeight, AVG(P.weight) AS AverageWeight
-FROM Player P
-GROUP BY P.position;
-
-
-SELECT J.ID, J.Fname, J.Lname, J.matches, J.experience, (J.matches / (YEAR(CURRENT_DATE) - YEAR(J.birthday) + 1)) AS MatchesPerYear
-FROM Judge J
-ORDER BY J.matches DESC
-FETCH FIRST 3 ROWS ONLY;
