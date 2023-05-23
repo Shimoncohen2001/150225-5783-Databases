@@ -25,12 +25,6 @@ FROM Coach C
 GROUP BY C.nationality;
 
 
-SELECT J.ID, J.Fname AS JudgeFirstName, J.Lname AS JudgeLastName, J.nationality,
-       C.ID, C.Fname AS CoachFirstName, C.Lname AS CoachLastName, C.nationality
-FROM Judge J
-JOIN Coach C ON J.nationality = C.nationality
-WHERE J.ID <> C.ID;
-
 
 SELECT P.ID, P.Fname, P.Lname, P.position, C.Fname AS CoachFirstName, C.Lname AS CoachLastName, C.experience
 FROM Player P
