@@ -34,14 +34,14 @@ WHERE C.experience >= 25;
 
 SELECT J.ID, J.Fname AS JudgeFirstName, J.Lname AS JudgeLastName
 FROM Judge J
-JOIN Match M ON J.ID = M.judgeID
-JOIN (
-    SELECT J.ID, COUNT(DISTINCT M.country) AS NumCountries
+WHERE J.ID IN (
+    SELECT J.ID
     FROM Judge J
-    JOIN Match M ON J.ID = M.judgeID
+    JOIN Player P ON J.ID = P.coachID
     GROUP BY J.ID
-    HAVING COUNT(DISTINCT M.country) >= 3
-) Subquery ON J.ID = Subquery.ID;
+    HAVING COUNT(DISTINCT P.nationality) >= 3
+);
+
 
 
 
