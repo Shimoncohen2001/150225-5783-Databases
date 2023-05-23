@@ -41,3 +41,27 @@ WHERE J.ID IN (
     GROUP BY J.ID
     HAVING COUNT(DISTINCT P.nationality) >= 3
 );
+
+
+SELECT C.ID AS CoachID, C.Fname AS CoachFirstName, C.Lname AS CoachLastName,
+       P.ID AS PlayerID, P.Fname AS PlayerFirstName, P.Lname AS PlayerLastName, P.awards, P.awardYear
+FROM Coach C
+JOIN Player P ON C.ID = P.coachID
+WHERE P.awardYear IN (
+    SELECT DISTINCT awardsYear
+    FROM Player
+    GROUP BY awardsYear
+    HAVING COUNT(DISTINCT awards) > 1
+);
+
+SELECT C.ID, C.Fname AS CoachFirstName, C.Lname AS CoachLastName, (C.wins / (C.wins + C.losses)) * 100 AS WinPercentage
+FROM Coach C
+WHERE C.ID IN (
+    SELECT coachID
+    FROM Player
+    GROUP BY coachID
+    HAVING COUNT(DISTINCT nationality) >= 3
+) AND (C.wins / (C.wins + C.losses)) * 100 > (
+    SELECT AVG(wins::float / (wins + losses)) * 100
+    FROM Coach
+);
