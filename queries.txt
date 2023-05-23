@@ -32,9 +32,17 @@ JOIN Coach C ON P.coachID = C.ID
 WHERE C.experience >= 25;
 
 
-SELECT J.ID, J.Fname, J.Lname
+SELECT J.ID, J.Fname AS JudgeFirstName, J.Lname AS JudgeLastName
 FROM Judge J
-WHERE (SELECT COUNT(DISTINCT nationality) FROM Match WHERE judgeID = J.ID) >= 3;
+JOIN Match M ON J.ID = M.judgeID
+JOIN (
+    SELECT J.ID, COUNT(DISTINCT M.country) AS NumCountries
+    FROM Judge J
+    JOIN Match M ON J.ID = M.judgeID
+    GROUP BY J.ID
+    HAVING COUNT(DISTINCT M.country) >= 3
+) Subquery ON J.ID = Subquery.ID;
+
 
 
 SELECT P.position, AVG(P.height) AS AverageHeight, AVG(P.weight) AS AverageWeight
