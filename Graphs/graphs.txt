@@ -1,3 +1,4 @@
 select Fname, count(*) AS times from Judge
 group by Fname
+having count(*) >= 5
 order by times desc;
