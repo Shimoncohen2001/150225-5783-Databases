@@ -1,0 +1,9 @@
+SELECT p.ID, p.Fname, p.Lname, AVG(t.score) AS AverageScore
+FROM Player p
+JOIN Throw t ON p.ID = t.player_ID
+WHERE t.score > (
+  SELECT AVG(score)
+  FROM Throw
+  WHERE player_ID = p.ID
+)
+GROUP BY p.ID, p.Fname, p.Lname;
