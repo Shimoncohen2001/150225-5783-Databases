@@ -20,4 +20,4 @@ CREATE INDEX idx_player_coachID_position ON Player (coachID, position);
 CREATE INDEX idx_judge_nationality ON Judge (nationality);
 
 -- Index 8
-CREATE INDEX idx_coach_wins_losses_percentage ON Coach (wins, losses, (wins / (wins + losses)));
+CREATE INDEX idx_coach_percentage ON Coach (wins, losses, (wins / (wins + losses)));
