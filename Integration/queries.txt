@@ -14,7 +14,7 @@ JOIN oreich.play_in PI ON Pl.ID = PI.player_ID;
 SELECT Pl.Fname AS PlayerFirstName, Pl.Lname AS PlayerLastName, Co.Lname AS CoachLastName, COUNT(Th.throw_ID) AS ThrowsCount
 FROM Player Pl
 JOIN Coach Co ON Pl.coachID = Co.ID
-JOIN oreich.Throw Th ON Pl.ID = Th.player_ID
-WHERE Th.game_ID = specific_game_ID
+JOIN oreich.throw Th ON Pl.ID = Th.thrower_ID
+WHERE Th.game_ID = 42
 GROUP BY Pl.Fname, Pl.Lname, Co.Lname;
 
