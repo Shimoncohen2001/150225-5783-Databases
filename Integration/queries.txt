@@ -1,30 +1,17 @@
-SELECT p.ID, p.Fname, p.Lname, AVG(t.score) AS AverageScore
-FROM Player p
-JOIN oreich.throw t ON p.ID = t.player_ID
-WHERE t.score > (
-  SELECT AVG(score)
-  FROM oreich.throw
-  WHERE player_ID = p.ID
-)
-GROUP BY p.ID, p.Fname, p.Lname;
+SELECT Pl.Fname AS PlayerFirstName, Pl.Lname AS PlayerLastName, J.Fname AS JudgeFirstName, J.Lname AS JudgeLastName
+FROM Player Pl
+JOIN oreich.Throw Th ON Pl.ID = Th.player_ID
+JOIN Judge J ON Th.player_ID = J.ID
+WHERE Th.location = 'specific_location';
 
-SELECT p.ID, p.Fname, p.Lname, AVG(pi.salary) AS AverageSalary, t.team_name
-FROM Player p
-JOIN oreich.play_in pi ON p.ID = pi.player_ID
-JOIN oreich.team t ON pi.team_ID = t.team_ID
-GROUP BY p.ID, p.Fname, p.Lname, t.team_name
-HAVING AVG(pi.salary) = (
-  SELECT MAX(AverageSalary)
-  FROM (
-    SELECT AVG(salary) AS AverageSalary
-    FROM oreich.play_in
-    GROUP BY player_ID
-  ) AS subquery
-);
 
-SELECT p.ID, p.Fname, p.Lname, SUM(pi.salary) AS TotalSalary, t.team_name
-FROM Player p
-JOIN oreich.play_in pi ON p.ID = pi.player_ID
-JOIN oreich.team t ON pi.team_ID = t.team_ID
-GROUP BY p.ID, p.Fname, p.Lname, t.team_name;
+SELECT Pl.Fname AS PlayerFirstName, Pl.Lname AS PlayerLastName, CONCAT(Co.Fname, ' ', Co.Lname) AS CoachFullName, PI.salary
+FROM Player Pl
+JOIN Coach Co ON Pl.coachID = Co.ID
+JOIN oreich.play_in PI ON Pl.ID = PI.player_ID;
 
+
+SELECT Pl.Fname AS PlayerFirstName, Pl.Lname AS PlayerLastName, Co.Fname AS CoachFirstName, Pl.matches
+FROM Player Pl
+JOIN Coach Co ON Pl.coachID = Co.ID
+WHERE Pl.awards > 0;
