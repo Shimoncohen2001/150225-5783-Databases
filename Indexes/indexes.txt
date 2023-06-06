@@ -1,0 +1,23 @@
+-- Index 1
+CREATE INDEX idx_coach_wins_losses ON Coach (wins, losses);
+
+-- Index 2
+CREATE INDEX idx_player_position_birthday ON Player (position, birthday);
+
+-- Index 3
+CREATE INDEX idx_player_coachID ON Player (coachID);
+
+-- Index 4
+CREATE INDEX idx_judge_id ON Judge (ID);
+
+-- Index 5
+CREATE INDEX idx_coach_experience ON Coach (experience);
+
+-- Index 6
+CREATE INDEX idx_player_coachID_position ON Player (coachID, position);
+
+-- Index 7
+CREATE INDEX idx_judge_nationality ON Judge (nationality);
+
+-- Index 8
+CREATE INDEX idx_coach_wins_losses_percentage ON Coach (wins, losses, (wins / (wins + losses)));
