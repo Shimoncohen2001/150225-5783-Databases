@@ -1,9 +1,30 @@
 SELECT p.ID, p.Fname, p.Lname, AVG(t.score) AS AverageScore
 FROM Player p
-JOIN Throw t ON p.ID = t.player_ID
+JOIN oreich.throw t ON p.ID = t.player_ID
 WHERE t.score > (
   SELECT AVG(score)
-  FROM Throw
+  FROM oreich.throw
   WHERE player_ID = p.ID
 )
 GROUP BY p.ID, p.Fname, p.Lname;
+
+SELECT p.ID, p.Fname, p.Lname, AVG(pi.salary) AS AverageSalary, t.team_name
+FROM Player p
+JOIN oreich.play_in pi ON p.ID = pi.player_ID
+JOIN oreich.team t ON pi.team_ID = t.team_ID
+GROUP BY p.ID, p.Fname, p.Lname, t.team_name
+HAVING AVG(pi.salary) = (
+  SELECT MAX(AverageSalary)
+  FROM (
+    SELECT AVG(salary) AS AverageSalary
+    FROM oreich.play_in
+    GROUP BY player_ID
+  ) AS subquery
+);
+
+SELECT p.ID, p.Fname, p.Lname, SUM(pi.salary) AS TotalSalary, t.team_name
+FROM Player p
+JOIN oreich.play_in pi ON p.ID = pi.player_ID
+JOIN oreich.team t ON pi.team_ID = t.team_ID
+GROUP BY p.ID, p.Fname, p.Lname, t.team_name;
+
