@@ -1,0 +1,18 @@
+CREATE VIEW PlayerDetailsView AS
+SELECT Pl.Fname AS PlayerFirstName, Pl.Lname AS PlayerLastName, Pl.birthday AS PlayerBirthday, Pl.nationality AS PlayerNationality, Co.Fname AS CoachFirstName, Co.Lname AS CoachLastName
+FROM Player Pl
+JOIN Coach Co ON Pl.coachID = Co.ID;
+
+CREATE VIEW JudgeExperienceView AS
+SELECT J.Fname AS JudgeFirstName, J.Lname AS JudgeLastName, J.experience AS JudgeExperience
+FROM Judge J;
+
+CREATE VIEW ThrowDetailsView AS
+SELECT Th.type AS ThrowType, Th.style AS ThrowStyle, Th.time AS ThrowTime, Th.score AS ThrowScore, Th.location AS ThrowLocation, Pl.Fname AS PlayerFirstName, Pl.Lname AS PlayerLastName
+FROM oreich.Throw Th
+JOIN Player Pl ON Th.player_ID = Pl.ID;
+
+CREATE VIEW GamePlayerSalaryView AS
+SELECT PI.game_ID AS GameID, Pl.Fname AS PlayerFirstName, Pl.Lname AS PlayerLastName, PI.salary AS Salary
+FROM oreich.play_in PI
+JOIN Player Pl ON PI.player_ID = Pl.ID;
