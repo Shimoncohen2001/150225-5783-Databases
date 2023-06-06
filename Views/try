@@ -1,4 +1,0 @@
-SELECT PlayerFirstName, PlayerLastName, PlayerBirthday, PlayerNationality, CoachFirstName, CoachLastName
-FROM PlayerDetailsView
-WHERE CoachLastName LIKE '%son%'
-ORDER BY PlayerLastName ASC;

@@ -1,0 +1,11 @@
+SELECT PlayerFirstName, PlayerLastName, PlayerBirthday, PlayerNationality, CoachFirstName, CoachLastName
+FROM PlayerDetailsView
+WHERE CoachLastName LIKE '%son%'
+ORDER BY PlayerLastName ASC;
+
+SELECT P.Fname AS PlayerFirstName, P.Lname AS PlayerLastName, P.birthday AS PlayerBirthday, P.nationality AS PlayerNationality, C.Fname AS CoachFirstName, C.Lname AS CoachLastName
+FROM Player P
+JOIN Coach C ON P.coachID = C.ID
+WHERE C.Lname LIKE '%son%'
+ORDER BY P.Lname ASC;
+
