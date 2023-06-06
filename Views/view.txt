@@ -12,7 +12,8 @@ SELECT Th.type AS ThrowType, Th.style AS ThrowStyle, Th.time AS ThrowTime, Th.sc
 FROM oreich.Throw Th
 JOIN Player Pl ON Th.player_ID = Pl.ID;
 
-CREATE VIEW GamePlayerSalaryView AS
-SELECT PI.game_ID AS GameID, Pl.Fname AS PlayerFirstName, Pl.Lname AS PlayerLastName, PI.salary AS Salary
+CREATE VIEW PlayerTeamSalaryView AS
+SELECT Pl.Fname AS PlayerFirstName, Pl.Lname AS PlayerLastName, PI.team_ID AS TeamID, PI.salary AS Salary, PI.start_year AS StartYear
 FROM oreich.play_in PI
 JOIN Player Pl ON PI.player_ID = Pl.ID;
+
