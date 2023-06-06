@@ -1,8 +1,8 @@
 SELECT Pl.Fname AS PlayerFirstName, Pl.Lname AS PlayerLastName, J.Fname AS JudgeFirstName, J.Lname AS JudgeLastName
 FROM Player Pl
-JOIN oreich.Throw Th ON Pl.ID = Th.player_ID
-JOIN Judge J ON Th.player_ID = J.ID
-WHERE Th.location = 'specific_location';
+JOIN oreich.throw Th ON Pl.ID = Th.thrower_ID
+JOIN Judge J ON Th.thrower_ID = J.ID
+WHERE Th.location = 'left baseline';
 
 
 SELECT Pl.Fname AS PlayerFirstName, Pl.Lname AS PlayerLastName, CONCAT(Co.Fname, ' ', Co.Lname) AS CoachFullName, PI.salary
