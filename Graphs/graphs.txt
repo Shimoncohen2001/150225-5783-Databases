@@ -1,1 +1,3 @@
-
+select Fname, count(*) AS times from Judge
+group by Fname
+order by times desc;
