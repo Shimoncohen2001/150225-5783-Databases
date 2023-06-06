@@ -5,7 +5,7 @@ JOIN Judge J ON Th.thrower_ID = J.ID
 WHERE Th.location = 'left baseline';
 
 
-SELECT Pl.Fname AS PlayerFirstName, Pl.Lname AS PlayerLastName, CONCAT(Co.Fname, ' ', Co.Lname) AS CoachFullName, PI.salary
+SELECT Pl.Fname AS PlayerFirstName, Pl.Lname AS PlayerLastName, Co.Fname AS CoachName, PI.salary
 FROM Player Pl
 JOIN Coach Co ON Pl.coachID = Co.ID
 JOIN oreich.play_in PI ON Pl.ID = PI.player_ID;
