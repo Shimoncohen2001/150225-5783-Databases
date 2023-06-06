@@ -6,6 +6,6 @@ order by times desc;
 SELECT nationality, COUNT(*) AS count
 FROM Judge
 GROUP BY nationality
-having count(*) >= 5
+having count(*) >= 100
 order by count  desc;
 
