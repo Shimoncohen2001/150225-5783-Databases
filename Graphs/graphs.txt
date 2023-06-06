@@ -5,5 +5,6 @@ order by times desc;
 
 SELECT nationality, COUNT(*) AS count
 FROM Judge
-GROUP BY nationality;
+GROUP BY nationality
+order by count  desc;
 
