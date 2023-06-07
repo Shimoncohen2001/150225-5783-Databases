@@ -27,31 +27,29 @@ END;
 
 
 
-CREATE OR REPLACE PROCEDURE InsertPlayer(
-  fname VARCHAR2(30),
-  lname VARCHAR2(30),
-  birthday DATE,
-  nationality VARCHAR2(3),
-  weight INT,
-  height INT,
-  position VARCHAR2(2),
-  shirt_number INT,
-  matches INT,
-  wins INT,
-  losses INT,
-  awards INT,
-  gender VARCHAR2(15),
-  experience INT,
-  coach_id INT
+CREATE OR REPLACE PROCEDURE UpdatePlayerStats(
+    p_playerID IN Player.ID%TYPE,
+    p_matchesWon IN Player.wins%TYPE,
+    p_matchesLost IN Player.losses%TYPE,
+    p_awards IN Player.awards%TYPE
 )
-AS
+IS
 BEGIN
-  INSERT INTO Player (Fname, Lname, birthday, nationality, weight, height, position, shirtNumber, matches, wins, losses, awards, gender, experience, coachID)
-  VALUES (fname, lname, birthday, nationality, weight, height, position, shirt_number, matches, wins, losses, awards, gender, experience, coach_id);
+    UPDATE Player
+    SET wins = p_matchesWon,
+        losses = p_matchesLost,
+        awards = p_awards
+    WHERE ID = p_playerID;
+
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Player stats updated successfully.');
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Player not found.');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error updating player stats: ' || SQLERRM);
 END;
 /
-
-
 
 CREATE OR REPLACE PROCEDURE UpdateCoachExperience(
   coach_id INT,
@@ -64,4 +62,3 @@ BEGIN
   WHERE ID = coach_id;
 END;
 /
-
