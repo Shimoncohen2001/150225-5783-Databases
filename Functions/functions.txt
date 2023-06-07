@@ -9,35 +9,38 @@ BEGIN
   
   RETURN total_matches;
 END;
+/
 
 
 CREATE OR REPLACE FUNCTION GetCoachFullName(coach_id INT)
-RETURN VARCHAR(60)
+RETURN VARCHAR2
 AS
-  full_name VARCHAR(60);
+  full_name VARCHAR2(60);
 BEGIN
-  SELECT CONCAT(Fname, ' ', Lname) INTO full_name
+  SELECT Fname || ' ' || Lname INTO full_name
   FROM Coach
   WHERE ID = coach_id;
   
   RETURN full_name;
 END;
+/
+
 
 
 CREATE OR REPLACE PROCEDURE InsertPlayer(
-  fname VARCHAR(30),
-  lname VARCHAR(30),
+  fname VARCHAR2(30),
+  lname VARCHAR2(30),
   birthday DATE,
-  nationality VARCHAR(3),
+  nationality VARCHAR2(3),
   weight INT,
   height INT,
-  position VARCHAR(2),
+  position VARCHAR2(2),
   shirt_number INT,
   matches INT,
   wins INT,
   losses INT,
   awards INT,
-  gender VARCHAR(15),
+  gender VARCHAR2(15),
   experience INT,
   coach_id INT
 )
@@ -46,6 +49,7 @@ BEGIN
   INSERT INTO Player (Fname, Lname, birthday, nationality, weight, height, position, shirtNumber, matches, wins, losses, awards, gender, experience, coachID)
   VALUES (fname, lname, birthday, nationality, weight, height, position, shirt_number, matches, wins, losses, awards, gender, experience, coach_id);
 END;
+/
 
 
 CREATE OR REPLACE PROCEDURE UpdateCoachExperience(
@@ -58,4 +62,4 @@ BEGIN
   SET experience = new_experience
   WHERE ID = coach_id;
 END;
-
+/
